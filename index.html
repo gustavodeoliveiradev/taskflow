@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="TaskFlow - To-Do List moderna e interativa com design glassmorphism" />
+  <meta name="author" content="Gustavo de Oliveira" />
+
+  <title>TaskFlow | Organize suas tarefas com estilo</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- SortableJS (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="src/styles/main.css" />
+
+  <!-- Scripts -->
+  <script type="module" src="src/scripts/main.js" defer></script>
+</head>
+<body>
+  <!-- Skip Link para acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <span class="brand-icon">✨</span>
+        <h1 class="brand-title">TaskFlow</h1>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn btn--icon" id="theme-toggle" aria-label="Alternar tema">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside class="app-sidebar" role="complementary" aria-label="Filtros e estatísticas">
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Filtros</h2>
+        <nav class="filter-nav" aria-label="Filtros de tarefas">
+          <button class="filter-btn is-active" data-filter="all">Todas</button>
+          <button class="filter-btn" data-filter="active">Ativas</button>
+          <button class="filter-btn" data-filter="completed">Concluídas</button>
+        </nav>
+      </div>
+
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Prioridade</h2>
+        <nav class="filter-nav" aria-label="Filtros por prioridade">
+          <button class="filter-btn filter-btn--priority filter-btn--high" data-priority="high">Alta</button>
+          <button class="filter-btn filter-btn--priority filter-btn--medium" data-priority="medium">Média</button>
+          <button class="filter-btn filter-btn--priority filter-btn--low" data-priority="low">Baixa</button>
+        </nav>
+      </div>
+
+      <div class="sidebar-section sidebar-section--stats">
+        <h2 class="sidebar-title">Progresso</h2>
+        <div class="progress-container">
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar__fill" style="width: 0%"></div>
+          </div>
+          <span class="progress-text">0% concluído</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="main-content" class="app-main" role="main">
+      <div class="main-header">
+        <h2 class="main-title">Minhas Tarefas</h2>
+        <button class="btn btn--primary" id="btn-new-task" accesskey="n">
+          <span class="btn__icon">+</span>
+          <span class="btn__text">Nova Tarefa</span>
+        </button>
+      </div>
+
+      <div class="tasks-container">
+        <ul class="task-list" id="task-list" role="list" aria-label="Lista de tarefas">
+          <!-- Tasks serão renderizadas aqui via JavaScript -->
+        </ul>
+
+        <div class="empty-state" id="empty-state">
+          <div class="empty-state__icon">📝</div>
+          <h3 class="empty-state__title">Nenhuma tarefa ainda</h3>
+          <p class="empty-state__text">Clique em "Nova Tarefa" ou pressione <kbd>N</kbd> para começar.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal (inicialmente oculto) -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <header class="modal__header">
+        <h2 id="modal-title" class="modal__title">Nova Tarefa</h2>
+        <button class="modal__close" id="modal-close" aria-label="Fechar modal">×</button>
+      </header>
+
+      <form class="modal__form" id="task-form">
+        <div class="form-group">
+          <label for="task-title" class="form-label">Título *</label>
+          <input type="text" id="task-title" class="form-input" placeholder="O que precisa ser feito?" required maxlength="100" />
+        </div>
+
+        <div class="form-group">
+          <label for="task-description" class="form-label">Descrição</label>
+          <textarea id="task-description" class="form-input form-input--textarea" placeholder="Detalhes adicionais..." maxlength="500"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group form-group--half">
+            <label for="task-priority" class="form-label">Prioridade</label>
+            <select id="task-priority" class="form-input form-input--select">
+              <option value="low">Baixa</option>
+              <option value="medium" selected>Média</option>
+              <option value="high">Alta</option>
+            </select>
+          </div>
+
+          <div class="form-group form-group--half">
+            <label for="task-due-date" class="form-label">Data de Vencimento</label>
+            <input type="date" id="task-due-date" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="task-tags" class="form-label">Tags (separadas por vírgula)</label>
+          <input type="text" id="task-tags" class="form-input" placeholder="trabalho, pessoal, urgente" maxlength="100" />
+        </div>
+
+        <footer class="modal__footer">
+          <button type="button" class="btn btn--secondary" id="btn-cancel">Cancelar</button>
+          <button type="submit" class="btn btn--primary">Salvar Tarefa</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

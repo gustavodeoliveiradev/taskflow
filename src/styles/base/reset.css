@@ -1,0 +1,88 @@
+/* ============================================
+   RESET MODERNO (baseado em Josh Comeau + ajustes)
+   ============================================ */
+
+/* Box-sizing universal */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remover estilos padrão de listas */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Remover estilos padrão de links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remover estilos padrão de botões */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Remover estilos padrão de inputs */
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Imagens responsivas por padrão */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Tabelas limpas */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Textarea não redimensionável horizontalmente */
+textarea {
+  resize: vertical;
+}
+
+/* Foco visível para acessibilidade */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Scroll suave */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remover animações para quem prefere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
