@@ -11,11 +11,18 @@
 - [x] main.js esqueleto + modal placeholder
 - [x] Responsividade básica mobile
 
-## Dia 2: Layout Responsivo ⏳
-- [ ] Refinar header.css isolado
-- [ ] Refinar sidebar.css isolado
-- [ ] Refinar main.css isolado
-- [ ] Ajustar grid para todos os breakpoints
+## Dia 2: Layout Responsivo ✅
+- [x] Extrair header.css isolado com animações
+- [x] Extrair sidebar.css isolado com filtros refinados
+- [x] Extrair main.css isolado com empty state animado
+- [x] Animações de entrada (fadeInDown, fadeInLeft, fadeInUp)
+- [x] Animação do modal (modalIn)
+- [x] Efeito shimmer na progress bar
+- [x] Efeito float no empty state
+- [x] Responsividade para tablet (1024px)
+- [x] Responsividade para mobile (768px)
+- [x] Responsividade para small mobile (480px)
+- [x] Stagger delays nas animações de entrada
 
 ## Dia 3: Componentes Visuais ⏳
 - [ ] button.css refinado

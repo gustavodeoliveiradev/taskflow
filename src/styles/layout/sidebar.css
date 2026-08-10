@@ -1,0 +1,271 @@
+/* ============================================
+   LAYOUT / SIDEBAR.CSS
+   Estilos da barra lateral (filtros e estatísticas)
+   ============================================ */
+
+.app-sidebar {
+  grid-area: sidebar;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  height: fit-content;
+  position: sticky;
+  top: var(--space-6);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg), var(--shadow-glass);
+  transition: background var(--transition-base), box-shadow var(--transition-base);
+  animation: fadeInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+.app-sidebar:hover {
+  background: var(--bg-glass-hover);
+}
+
+/* Seções da Sidebar */
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-section--stats {
+  margin-top: auto;
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-color);
+}
+
+.sidebar-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: var(--space-4);
+}
+
+/* Navegação de Filtros */
+.filter-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn:hover {
+  background: var(--bg-glass-strong);
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+/* Botão ativo — gradiente direto no background, sem pseudo-elemento */
+.filter-btn.is-active {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+  color: var(--color-white);
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+  transform: translateX(4px);
+}
+
+/* Indicadores de prioridade nos filtros */
+.filter-btn--priority::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.filter-btn--high::after {
+  background: var(--color-priority-high);
+  box-shadow: 0 0 6px var(--color-priority-high);
+}
+
+.filter-btn--medium::after {
+  background: var(--color-priority-medium);
+  box-shadow: 0 0 6px var(--color-priority-medium);
+}
+
+.filter-btn--low::after {
+  background: var(--color-priority-low);
+  box-shadow: 0 0 6px var(--color-priority-low);
+}
+
+/* Contador de tasks (badge) */
+.filter-btn .filter-count {
+  margin-left: auto;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-1) var(--space-2);
+  background: var(--bg-glass-strong);
+  border-radius: var(--radius-full);
+  min-width: 24px;
+  text-align: center;
+  transition: background var(--transition-fast);
+}
+
+.filter-btn.is-active .filter-count {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Progress Bar */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-glass-strong);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-400), var(--color-primary-300));
+  background-size: 200% 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+  animation: gradientShift 3s ease infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.progress-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+  text-align: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+.progress-text .progress-label {
+  color: var(--text-secondary);
+}
+
+/* Animações */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Responsividade da Sidebar */
+@media (max-width: 1024px) {
+  .app-sidebar {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding: var(--space-5);
+  }
+
+  .sidebar-section {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .sidebar-section--stats {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    min-width: 100%;
+  }
+
+  .filter-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    flex: 1;
+    min-width: 120px;
+    justify-content: center;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.is-active {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-sidebar {
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .sidebar-section {
+    min-width: 140px;
+  }
+
+  .filter-btn {
+    min-width: 100px;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-nav {
+    flex-direction: column;
+  }
+
+  .filter-btn {
+    min-width: unset;
+    justify-content: flex-start;
+  }
+}

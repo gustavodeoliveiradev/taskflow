@@ -8,10 +8,10 @@
 @import url('base/reset.css');
 @import url('base/typography.css');
 
-/* Layout (serão criados nos próximos dias) */
-/* @import url('layout/header.css'); */
-/* @import url('layout/sidebar.css'); */
-/* @import url('layout/main.css'); */
+/* Layout */
+@import url('layout/header.css');
+@import url('layout/sidebar.css');
+@import url('layout/main.css');
 
 /* Components (serão criados nos próximos dias) */
 /* @import url('components/button.css'); */
@@ -25,7 +25,7 @@
 /* @import url('themes/dark-theme.css'); */
 
 /* ============================================
-   ESTILOS GLOBAIS DO DIA 1
+   ESTILOS GLOBAIS
    ============================================ */
 
 /* Body com gradiente de fundo */
@@ -51,10 +51,7 @@ body {
   margin: 0 auto;
 }
 
-/* Glassmorphism base aplicado em todas as "cartas" */
-.app-header,
-.app-sidebar,
-.app-main,
+/* Glassmorphism base para elementos compartilhados */
 .modal {
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
@@ -62,103 +59,6 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg), var(--shadow-glass);
-  transition: background var(--transition-base), box-shadow var(--transition-base);
-}
-
-.app-header:hover,
-.app-sidebar:hover,
-.app-main:hover {
-  background: var(--bg-glass-hover);
-}
-
-/* Header */
-.app-header {
-  grid-area: header;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: var(--space-4) var(--space-6);
-}
-
-.header-brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.brand-icon {
-  font-size: var(--font-size-2xl);
-}
-
-.brand-title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Sidebar */
-.app-sidebar {
-  grid-area: sidebar;
-  padding: var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-8);
-  height: fit-content;
-  position: sticky;
-  top: var(--space-6);
-}
-
-.sidebar-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-  margin-bottom: var(--space-4);
-}
-
-/* Main */
-.app-main {
-  grid-area: main;
-  padding: var(--space-6);
-  min-height: calc(100vh - var(--space-12));
-}
-
-.main-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--space-6);
-}
-
-.main-title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-}
-
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: var(--space-16) var(--space-8);
-}
-
-.empty-state__icon {
-  font-size: var(--font-size-4xl);
-  margin-bottom: var(--space-4);
-  opacity: 0.7;
-}
-
-.empty-state__title {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--space-2);
-}
-
-.empty-state__text {
-  color: var(--text-muted);
 }
 
 /* Modal Overlay */
@@ -182,12 +82,17 @@ body {
   visibility: visible;
 }
 
+.modal-overlay.is-visible .modal {
+  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .modal {
   width: 100%;
   max-width: 500px;
   max-height: 90vh;
   overflow-y: auto;
   padding: var(--space-6);
+  transform-origin: center;
 }
 
 .modal__header {
@@ -198,24 +103,28 @@ body {
 }
 
 .modal__title {
+  font-family: var(--font-display);
   font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
 }
 
 .modal__close {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-2xl);
   color: var(--text-muted);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition: all var(--transition-fast);
+  line-height: 1;
 }
 
 .modal__close:hover {
   background: var(--bg-glass-strong);
   color: var(--text-primary);
+  transform: rotate(90deg);
 }
 
 /* Form */
@@ -243,6 +152,11 @@ body {
   border: 1px solid var(--input-border);
   border-radius: var(--radius-lg);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  color: var(--text-primary);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
 }
 
 .form-input:focus {
@@ -264,7 +178,7 @@ body {
   border-top: 1px solid var(--border-color);
 }
 
-/* Botões básicos (serão refinados no Dia 3) */
+/* Botões básicos */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -275,17 +189,23 @@ body {
   font-weight: var(--font-weight-medium);
   border-radius: var(--radius-lg);
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .btn--primary {
   background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
   color: var(--color-white);
   box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+  border: none;
 }
 
 .btn--primary:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+}
+
+.btn--primary:active {
+  transform: translateY(0);
 }
 
 .btn--secondary {
@@ -310,72 +230,35 @@ body {
 
 .btn--icon:hover {
   background: var(--bg-glass-hover);
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-/* Filtros básicos */
-.filter-nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.filter-btn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--text-secondary);
-  border-radius: var(--radius-lg);
-  transition: all var(--transition-fast);
-  text-align: left;
-}
-
-.filter-btn:hover {
-  background: var(--bg-glass-strong);
-  color: var(--text-primary);
-}
-
-.filter-btn.is-active {
-  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
-  color: var(--color-white);
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
-}
-
-/* Progress bar básico */
-.progress-container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.progress-bar {
-  width: 100%;
-  height: 8px;
-  background: var(--bg-glass-strong);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-}
-
-.progress-bar__fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-primary-500), var(--color-primary-400));
-  border-radius: var(--radius-full);
-  transition: width var(--transition-slow);
-}
-
-.progress-text {
-  font-size: var(--font-size-xs);
-  color: var(--text-muted);
-  text-align: right;
+/* Animações globais */
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* ============================================
-   RESPONSIVIDADE BÁSICA
+   RESPONSIVIDADE GLOBAL
    ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .app-container {
+    grid-template-columns: 240px 1fr;
+    gap: var(--space-5);
+    padding: var(--space-5);
+  }
+}
+
+/* Mobile */
 @media (max-width: 768px) {
   .app-container {
     grid-template-areas:
@@ -388,19 +271,33 @@ body {
     gap: var(--space-4);
   }
 
-  .app-sidebar {
-    position: static;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-  }
-
-  .sidebar-section {
-    flex: 1;
-    min-width: 200px;
-  }
-
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .modal {
+    margin: var(--space-4);
+    max-height: calc(100vh - var(--space-8));
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .app-container {
+    padding: var(--space-3);
+    gap: var(--space-3);
+  }
+
+  .modal {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .modal__footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal__footer .btn {
+    width: 100%;
   }
 }
