@@ -1,0 +1,325 @@
+/* ============================================
+   COMPONENTS / TASK-CARD.CSS
+   Cards de tarefa com glassmorphism e interações
+   ============================================ */
+
+/* ---------- Lista de Tasks ---------- */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ---------- Card Base ---------- */
+.task-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  cursor: grab;
+  position: relative;
+  overflow: hidden;
+  animation: cardIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.task-card:hover {
+  background: var(--bg-glass-hover);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.task-card:hover .btn--action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card sendo arrastado (SortableJS) */
+.task-card.sortable-ghost {
+  opacity: 0.4;
+  background: var(--color-primary-100);
+  border-style: dashed;
+}
+
+.task-card.sortable-drag {
+  cursor: grabbing;
+  transform: rotate(2deg) scale(1.02);
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-sticky);
+}
+
+/* Card concluído */
+.task-card.is-completed {
+  opacity: 0.7;
+}
+
+.task-card.is-completed .task-card__title {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+.task-card.is-completed .task-card__checkbox-custom {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.task-card.is-completed .task-card__checkbox-custom::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ---------- Drag Handle ---------- */
+.task-card__drag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+  color: var(--text-muted);
+  cursor: grab;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.task-card:hover .task-card__drag {
+  opacity: 1;
+}
+
+.task-card__drag svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- Checkbox Customizado ---------- */
+.task-card__checkbox {
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.task-card__checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.task-card__checkbox-custom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--border-color-strong);
+  border-radius: var(--radius-md);
+  background: var(--bg-glass-strong);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.task-card__checkbox-custom::after {
+  content: '✓';
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all var(--transition-fast);
+}
+
+.task-card__checkbox-input:focus-visible + .task-card__checkbox-custom {
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+}
+
+.task-card__checkbox-input:checked + .task-card__checkbox-custom {
+  background: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.task-card__checkbox-input:checked + .task-card__checkbox-custom::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.task-card__checkbox-custom:hover {
+  border-color: var(--color-primary-400);
+}
+
+/* ---------- Conteúdo do Card ---------- */
+.task-card__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.task-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.task-card__title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  line-height: var(--line-height-tight);
+  word-break: break-word;
+}
+
+.task-card__description {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  line-height: var(--line-height-normal);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---------- Meta (Tags + Data) ---------- */
+.task-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-1);
+}
+
+/* Prioridade Badge */
+.task-card__priority {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.task-card__priority--high {
+  background: var(--color-priority-high-bg);
+  color: var(--color-priority-high);
+}
+
+.task-card__priority--medium {
+  background: var(--color-priority-medium-bg);
+  color: var(--color-priority-medium);
+}
+
+.task-card__priority--low {
+  background: var(--color-priority-low-bg);
+  color: var(--color-priority-low);
+}
+
+.task-card__priority-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+/* Tags */
+.task-card__tags {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.task-card__tag {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-glass-strong);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.task-card__tag:hover {
+  background: var(--bg-glass-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+/* Data de Vencimento */
+.task-card__due-date {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-card__due-date.is-overdue {
+  color: var(--color-priority-high);
+  font-weight: var(--font-weight-semibold);
+}
+
+.task-card__due-date.is-overdue::before {
+  content: '⚠️';
+  margin-right: var(--space-1);
+}
+
+/* ---------- Ações do Card ---------- */
+.task-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+/* ---------- Animação de entrada ---------- */
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Stagger delay para cards (até 10 items) */
+.task-list .task-card:nth-child(1) { animation-delay: 0.05s; }
+.task-list .task-card:nth-child(2) { animation-delay: 0.10s; }
+.task-list .task-card:nth-child(3) { animation-delay: 0.15s; }
+.task-list .task-card:nth-child(4) { animation-delay: 0.20s; }
+.task-list .task-card:nth-child(5) { animation-delay: 0.25s; }
+.task-list .task-card:nth-child(6) { animation-delay: 0.30s; }
+.task-list .task-card:nth-child(7) { animation-delay: 0.35s; }
+.task-list .task-card:nth-child(8) { animation-delay: 0.40s; }
+.task-list .task-card:nth-child(9) { animation-delay: 0.45s; }
+.task-list .task-card:nth-child(10) { animation-delay: 0.50s; }
+
+/* ---------- Responsividade ---------- */
+@media (max-width: 768px) {
+  .task-card {
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-3);
+  }
+
+  .task-card__drag {
+    display: none;
+  }
+
+  .btn--action {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

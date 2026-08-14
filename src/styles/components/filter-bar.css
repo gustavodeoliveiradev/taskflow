@@ -1,0 +1,184 @@
+/* ============================================
+   COMPONENTS / FILTER-BAR.CSS
+   Barra de busca e filtros rápidos
+   ============================================ */
+
+/* ---------- Search Input ---------- */
+.search-bar {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+}
+
+.search-bar__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4) var(--space-3) var(--space-10);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  transition: all var(--transition-fast);
+}
+
+.search-bar__input::placeholder {
+  color: var(--text-muted);
+}
+
+.search-bar__input:hover {
+  border-color: var(--border-color-strong);
+}
+
+.search-bar__input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+  background: var(--bg-glass);
+  outline: none;
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: var(--font-size-base);
+}
+
+.search-bar__clear {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: var(--bg-glass-strong);
+  border: none;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.search-bar__input:not(:placeholder-shown) + .search-bar__icon + .search-bar__clear,
+.search-bar__input:focus + .search-bar__icon + .search-bar__clear {
+  opacity: 1;
+}
+
+.search-bar__clear:hover {
+  background: var(--color-priority-high-bg);
+  color: var(--color-priority-high);
+}
+
+/* ---------- Filter Chips (para mobile/toolbar) ---------- */
+.filter-chips {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  background: var(--bg-glass-strong);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.filter-chip:hover {
+  background: var(--bg-glass-hover);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.filter-chip.is-active {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-primary-700));
+  color: var(--color-white);
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.filter-chip__remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.25);
+  color: currentColor;
+  font-size: 10px;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  margin-left: var(--space-1);
+}
+
+.filter-chip__remove:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- Toolbar (busca + filtros + contadores) ---------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.toolbar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+}
+
+.toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.task-counter {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.task-counter__number {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ---------- Responsividade ---------- */
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-bar {
+    max-width: none;
+  }
+
+  .toolbar__right {
+    justify-content: space-between;
+  }
+}
