@@ -49,9 +49,9 @@
       <div class="sidebar-section">
         <h2 class="sidebar-title">Filtros</h2>
         <nav class="filter-nav" aria-label="Filtros de tarefas">
-          <button class="filter-btn is-active" data-filter="all">Todas <span class="filter-count">5</span></button>
-          <button class="filter-btn" data-filter="active">Ativas <span class="filter-count">3</span></button>
-          <button class="filter-btn" data-filter="completed">Concluídas <span class="filter-count">2</span></button>
+          <button class="filter-btn is-active" data-filter="all">Todas <span class="filter-count">0</span></button>
+          <button class="filter-btn" data-filter="active">Ativas <span class="filter-count">0</span></button>
+          <button class="filter-btn" data-filter="completed">Concluídas <span class="filter-count">0</span></button>
         </nav>
       </div>
 
@@ -68,15 +68,15 @@
         <h2 class="sidebar-title">Estatísticas</h2>
         <div class="stats-grid">
           <div class="stat-card stat-card--completed">
-            <span class="stat-card__value">2</span>
+            <span class="stat-card__value">0</span>
             <span class="stat-card__label">Concluídas</span>
           </div>
           <div class="stat-card stat-card--pending">
-            <span class="stat-card__value">3</span>
+            <span class="stat-card__value">0</span>
             <span class="stat-card__label">Pendentes</span>
           </div>
           <div class="stat-card stat-card--overdue">
-            <span class="stat-card__value">1</span>
+            <span class="stat-card__value">0</span>
             <span class="stat-card__label">Atrasadas</span>
           </div>
         </div>
@@ -88,12 +88,12 @@
           <div class="progress-header">
             <span class="progress-label">Conclusão geral</span>
           </div>
-          <div class="progress-bar" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar__fill" style="width: 40%"></div>
+          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar__fill" style="width: 0%"></div>
           </div>
           <div class="progress-text">
-            <span>2 de 5 tarefas</span>
-            <strong>40%</strong>
+            <span>0 de 0 tarefas</span>
+            <strong>0%</strong>
           </div>
         </div>
       </div>
@@ -111,7 +111,7 @@
           </div>
         </div>
         <div class="toolbar__right">
-          <span class="task-counter"><span class="task-counter__number">5</span> tarefas</span>
+          <span class="task-counter"><span class="task-counter__number">0</span> tarefas</span>
           <button class="btn btn--primary" id="btn-new-task" accesskey="n">
             <span class="btn__icon">+</span>
             <span class="btn__text">Nova Tarefa</span>
@@ -120,191 +120,12 @@
       </div>
 
       <div class="tasks-container">
+        <!-- Lista renderizada dinamicamente pelo JS -->
         <ul class="task-list" id="task-list" role="list" aria-label="Lista de tarefas">
-
-          <!-- Card 1: Alta prioridade, ativa -->
-          <li class="task-card" data-id="1" data-priority="high">
-            <div class="task-card__drag" aria-label="Arrastar tarefa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
-            </div>
-            <label class="task-card__checkbox">
-              <input type="checkbox" class="task-card__checkbox-input" aria-label="Marcar como concluída" />
-              <span class="task-card__checkbox-custom" aria-hidden="true"></span>
-            </label>
-            <div class="task-card__content">
-              <div class="task-card__header">
-                <h3 class="task-card__title">Finalizar relatório trimestral</h3>
-              </div>
-              <p class="task-card__description">Revisar os dados financeiros e montar a apresentação para a diretoria com os gráficos atualizados.</p>
-              <div class="task-card__meta">
-                <span class="task-card__priority task-card__priority--high">
-                  <span class="task-card__priority-dot"></span>
-                  Alta
-                </span>
-                <div class="task-card__tags">
-                  <span class="task-card__tag">trabalho</span>
-                  <span class="task-card__tag">urgente</span>
-                </div>
-                <span class="task-card__due-date is-overdue">10/08/2026</span>
-              </div>
-            </div>
-            <div class="task-card__actions">
-              <button class="btn btn--action" aria-label="Editar tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button class="btn btn--action btn--action-delete" aria-label="Excluir tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </li>
-
-          <!-- Card 2: Média prioridade, ativa -->
-          <li class="task-card" data-id="2" data-priority="medium">
-            <div class="task-card__drag" aria-label="Arrastar tarefa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
-            </div>
-            <label class="task-card__checkbox">
-              <input type="checkbox" class="task-card__checkbox-input" aria-label="Marcar como concluída" />
-              <span class="task-card__checkbox-custom" aria-hidden="true"></span>
-            </label>
-            <div class="task-card__content">
-              <div class="task-card__header">
-                <h3 class="task-card__title">Reunião com o time de design</h3>
-              </div>
-              <p class="task-card__description">Alinhar o novo design system e discutir as diretrizes visuais para o próximo trimestre.</p>
-              <div class="task-card__meta">
-                <span class="task-card__priority task-card__priority--medium">
-                  <span class="task-card__priority-dot"></span>
-                  Média
-                </span>
-                <div class="task-card__tags">
-                  <span class="task-card__tag">reunião</span>
-                  <span class="task-card__tag">design</span>
-                </div>
-                <span class="task-card__due-date">15/08/2026</span>
-              </div>
-            </div>
-            <div class="task-card__actions">
-              <button class="btn btn--action" aria-label="Editar tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button class="btn btn--action btn--action-delete" aria-label="Excluir tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </li>
-
-          <!-- Card 3: Baixa prioridade, ativa -->
-          <li class="task-card" data-id="3" data-priority="low">
-            <div class="task-card__drag" aria-label="Arrastar tarefa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
-            </div>
-            <label class="task-card__checkbox">
-              <input type="checkbox" class="task-card__checkbox-input" aria-label="Marcar como concluída" />
-              <span class="task-card__checkbox-custom" aria-hidden="true"></span>
-            </label>
-            <div class="task-card__content">
-              <div class="task-card__header">
-                <h3 class="task-card__title">Organizar a estante de livros</h3>
-              </div>
-              <p class="task-card__description">Separar os livros por categoria e doar os que não leio mais há mais de 2 anos.</p>
-              <div class="task-card__meta">
-                <span class="task-card__priority task-card__priority--low">
-                  <span class="task-card__priority-dot"></span>
-                  Baixa
-                </span>
-                <div class="task-card__tags">
-                  <span class="task-card__tag">pessoal</span>
-                  <span class="task-card__tag">casa</span>
-                </div>
-                <span class="task-card__due-date">20/08/2026</span>
-              </div>
-            </div>
-            <div class="task-card__actions">
-              <button class="btn btn--action" aria-label="Editar tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button class="btn btn--action btn--action-delete" aria-label="Excluir tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </li>
-
-          <!-- Card 4: Concluída (alta) -->
-          <li class="task-card is-completed" data-id="4" data-priority="high">
-            <div class="task-card__drag" aria-label="Arrastar tarefa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
-            </div>
-            <label class="task-card__checkbox">
-              <input type="checkbox" class="task-card__checkbox-input" checked aria-label="Marcar como pendente" />
-              <span class="task-card__checkbox-custom" aria-hidden="true"></span>
-            </label>
-            <div class="task-card__content">
-              <div class="task-card__header">
-                <h3 class="task-card__title">Deploy da nova landing page</h3>
-              </div>
-              <p class="task-card__description">Subir a versão final para produção e configurar o DNS do domínio principal.</p>
-              <div class="task-card__meta">
-                <span class="task-card__priority task-card__priority--high">
-                  <span class="task-card__priority-dot"></span>
-                  Alta
-                </span>
-                <div class="task-card__tags">
-                  <span class="task-card__tag">dev</span>
-                  <span class="task-card__tag">deploy</span>
-                </div>
-                <span class="task-card__due-date">05/08/2026</span>
-              </div>
-            </div>
-            <div class="task-card__actions">
-              <button class="btn btn--action" aria-label="Editar tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button class="btn btn--action btn--action-delete" aria-label="Excluir tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </li>
-
-          <!-- Card 5: Concluída (baixa) -->
-          <li class="task-card is-completed" data-id="5" data-priority="low">
-            <div class="task-card__drag" aria-label="Arrastar tarefa">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="19" r="1"/></svg>
-            </div>
-            <label class="task-card__checkbox">
-              <input type="checkbox" class="task-card__checkbox-input" checked aria-label="Marcar como pendente" />
-              <span class="task-card__checkbox-custom" aria-hidden="true"></span>
-            </label>
-            <div class="task-card__content">
-              <div class="task-card__header">
-                <h3 class="task-card__title">Comprar café e açúcar</h3>
-              </div>
-              <p class="task-card__description">Passar no mercado depois do trabalho e pegar também algumas frutas.</p>
-              <div class="task-card__meta">
-                <span class="task-card__priority task-card__priority--low">
-                  <span class="task-card__priority-dot"></span>
-                  Baixa
-                </span>
-                <div class="task-card__tags">
-                  <span class="task-card__tag">compras</span>
-                </div>
-                <span class="task-card__due-date">08/08/2026</span>
-              </div>
-            </div>
-            <div class="task-card__actions">
-              <button class="btn btn--action" aria-label="Editar tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-              </button>
-              <button class="btn btn--action btn--action-delete" aria-label="Excluir tarefa">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-              </button>
-            </div>
-          </li>
-
         </ul>
 
-        <!-- Empty State (oculto quando há tarefas) -->
-        <div class="empty-state is-hidden" id="empty-state" style="display: none;">
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state">
           <div class="empty-state__icon">📝</div>
           <h3 class="empty-state__title">Nenhuma tarefa ainda</h3>
           <p class="empty-state__text">Clique em "Nova Tarefa" ou pressione <kbd>N</kbd> para começar.</p>
@@ -313,7 +134,7 @@
     </main>
   </div>
 
-  <!-- Modal (inicialmente oculto) -->
+  <!-- Modal -->
   <div class="modal-overlay" id="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal">
       <header class="modal__header">

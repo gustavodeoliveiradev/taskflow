@@ -25,29 +25,36 @@
 - [x] Stagger delays nas animações de entrada
 
 ## Dia 3: Componentes Visuais ✅
-- [x] button.css — Variantes (primary, secondary, danger, ghost, icon), tamanhos, loading state, ripple effect
-- [x] task-card.css — Checkbox customizado, prioridade badge, tags, data de vencimento, drag handle, ações hover
-- [x] modal.css — Animações in/out, scrollbar customizada, mobile slide-up, formulário estilizado
-- [x] filter-bar.css — Search input com ícone e clear button, filter chips, toolbar com contador
-- [x] progress-bar.css — Barra linear animada, stats grid (concluídas/pendentes/atrasadas), shimmer
-- [x] Atualizar main.css — Remover estilos duplicados, importar todos os componentes
-- [x] Atualizar index.html — 5 cards de exemplo, toolbar com busca, stats na sidebar
-- [x] Animação stagger nos cards (até 10 items)
-- [x] Estados: hover, active, completed, overdue, ghost (drag)
+- [x] button.css — Variantes, tamanhos, loading state, ripple effect
+- [x] task-card.css — Checkbox customizado, badges, tags, drag handle
+- [x] modal.css — Animações in/out, scrollbar customizada, mobile slide-up
+- [x] filter-bar.css — Search input, filter chips, toolbar
+- [x] progress-bar.css — Barra animada, stats grid, shimmer
+- [x] Atualizar main.css — Remover duplicatas, importar componentes
+- [x] Atualizar index.html — Toolbar, stats, cards de exemplo
+- [x] Hotfix: stats grid ajustado para caber na sidebar
 
-## Dia 4: Lógica Core & CRUD ⏳
-- [ ] StorageService.js (localStorage)
-- [ ] TaskManager (criar, ler, atualizar, deletar)
-- [ ] Renderização dinâmica dos cards
-- [ ] Mock data JSON
-- [ ] Integrar modal com formulário real
+## Dia 4: Lógica Core & CRUD ✅
+- [x] helpers.js — generateId, formatDate, isOverdue, escapeHtml
+- [x] StorageService.js — localStorage, exportar/importar JSON
+- [x] mock-tasks.js — 5 tarefas de exemplo
+- [x] TaskManager.js — CRUD completo + filtros + busca + stats
+- [x] TaskList.js — Renderização dinâmica dos cards
+- [x] Modal.js — Controle de criação/edição com formulário
+- [x] main.js — Entry point, ligação de todos os módulos
+- [x] index.html atualizado — Cards hardcoded removidos, tudo dinâmico
+- [x] Filtros funcionais (status + prioridade)
+- [x] Busca em tempo real
+- [x] Contadores dinâmicos (sidebar + toolbar)
+- [x] Stats e progress bar atualizados automaticamente
+- [x] Atalho de teclado 'N' para nova tarefa
+- [x] Confirmação antes de excluir
 
 ## Dia 5: Interatividade Avançada ⏳
 - [ ] SortableJS integração (drag & drop funcional)
-- [ ] Filtros funcionais (clique nos botões da sidebar)
-- [ ] Busca em tempo real
-- [ ] Contadores dinâmicos
-- [ ] Checkbox funcional (marcar concluído)
+- [ ] Persistir ordem das tarefas
+- [ ] Animações ao completar tarefa
+- [ ] Exportar/Importar JSON na UI
 
 ## Dia 6: Temas & Animações ⏳
 - [ ] Toggle dark/light funcional
