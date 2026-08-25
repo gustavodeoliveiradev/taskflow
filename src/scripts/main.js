@@ -7,7 +7,7 @@ import { TaskManager } from './core/TaskManager.js';
 import { TaskList } from './components/TaskList.js';
 import { Modal } from './components/Modal.js';
 import { StorageService } from './services/StorageService.js';
-import { mockTasks } from '../data/mock-tasks.js';
+import { mockTasks } from './data/mock-tasks.js';
 
 class App {
   constructor() {
