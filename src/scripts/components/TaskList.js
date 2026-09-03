@@ -127,11 +127,16 @@ export class TaskList {
     this.container.querySelectorAll('.task-card__checkbox-input').forEach(cb => {
       cb.addEventListener('change', (e) => {
         const card = e.target.closest('.task-card');
-        // Animação de celebração
+
+        // Animação de celebração ao MARCAR como concluído
         if (e.target.checked) {
           card.classList.add('is-celebrating');
-          setTimeout(() => card.classList.remove('is-celebrating'), 600);
+          // Remove a classe após a animação terminar (3.1s)
+          setTimeout(() => {
+            card.classList.remove('is-celebrating');
+          }, 3100);
         }
+
         this.onToggle(card.dataset.id);
       });
     });

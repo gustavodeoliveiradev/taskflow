@@ -20,7 +20,7 @@
   background: var(--bg-glass);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-base);
@@ -77,19 +77,98 @@
   transform: scale(1);
 }
 
-/* Animação de celebração ao completar */
+/* ============================================
+   ANIMAÇÃO DE CELEBRAÇÃO — Contorno verde
+   ============================================
+
+   Fases da animação:
+   0%   → 10%   : border e shadow entram suavemente (0.3s)
+   10%  → 90%   : contorno fica visível e pulsante (2.5s)
+   90%  → 100%  : contorno sai suavemente (0.3s)
+   Total: ~3.1s
+   ============================================ */
+
 .task-card.is-celebrating {
-  animation: celebrate 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: celebrateBorder 3.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.task-card.is-celebrating::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(139, 92, 246, 0.1));
-  border-radius: inherit;
-  animation: celebrateGlow 0.6s ease;
-  pointer-events: none;
+@keyframes celebrateBorder {
+  0% {
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transform: scale(1);
+  }
+  10% {
+    border-color: #10b981;
+    box-shadow: 
+      0 0 0 4px rgba(16, 185, 129, 0.15),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      var(--shadow-lg);
+    transform: scale(1.015);
+  }
+  20% {
+    border-color: #34d399;
+    box-shadow: 
+      0 0 0 6px rgba(52, 211, 153, 0.12),
+      0 0 30px rgba(52, 211, 153, 0.25),
+      var(--shadow-lg);
+    transform: scale(1.015);
+  }
+  30% {
+    border-color: #10b981;
+    box-shadow: 
+      0 0 0 4px rgba(16, 185, 129, 0.15),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      var(--shadow-lg);
+  }
+  40% {
+    border-color: #34d399;
+    box-shadow: 
+      0 0 0 6px rgba(52, 211, 153, 0.12),
+      0 0 30px rgba(52, 211, 153, 0.25),
+      var(--shadow-lg);
+  }
+  50% {
+    border-color: #10b981;
+    box-shadow: 
+      0 0 0 4px rgba(16, 185, 129, 0.15),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      var(--shadow-lg);
+  }
+  60% {
+    border-color: #34d399;
+    box-shadow: 
+      0 0 0 6px rgba(52, 211, 153, 0.12),
+      0 0 30px rgba(52, 211, 153, 0.25),
+      var(--shadow-lg);
+  }
+  70% {
+    border-color: #10b981;
+    box-shadow: 
+      0 0 0 4px rgba(16, 185, 129, 0.15),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      var(--shadow-lg);
+  }
+  80% {
+    border-color: #34d399;
+    box-shadow: 
+      0 0 0 6px rgba(52, 211, 153, 0.12),
+      0 0 30px rgba(52, 211, 153, 0.25),
+      var(--shadow-lg);
+  }
+  90% {
+    border-color: #10b981;
+    box-shadow: 
+      0 0 0 4px rgba(16, 185, 129, 0.15),
+      0 0 20px rgba(16, 185, 129, 0.2),
+      var(--shadow-lg);
+    transform: scale(1.015);
+  }
+  100% {
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-sm);
+    transform: scale(1);
+  }
 }
 
 /* ---------- Drag Handle ---------- */
@@ -311,19 +390,6 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-}
-
-@keyframes celebrate {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.02) translateY(-2px); }
-  50% { transform: scale(1.01); }
-  100% { transform: scale(1); }
-}
-
-@keyframes celebrateGlow {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
 }
 
 /* Stagger delay para cards (até 10 items) */
