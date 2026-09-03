@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  min-height: 100px;
 }
 
 /* ---------- Card Base ---------- */
@@ -45,6 +46,7 @@
   opacity: 0.4;
   background: var(--color-primary-100);
   border-style: dashed;
+  border-color: var(--color-primary-400);
 }
 
 .task-card.sortable-drag {
@@ -52,6 +54,7 @@
   transform: rotate(2deg) scale(1.02);
   box-shadow: var(--shadow-xl);
   z-index: var(--z-sticky);
+  background: var(--bg-glass-strong);
 }
 
 /* Card concluído */
@@ -72,6 +75,21 @@
 .task-card.is-completed .task-card__checkbox-custom::after {
   opacity: 1;
   transform: scale(1);
+}
+
+/* Animação de celebração ao completar */
+.task-card.is-celebrating {
+  animation: celebrate 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.task-card.is-celebrating::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: inherit;
+  animation: celebrateGlow 0.6s ease;
+  pointer-events: none;
 }
 
 /* ---------- Drag Handle ---------- */
@@ -283,7 +301,7 @@
   flex-shrink: 0;
 }
 
-/* ---------- Animação de entrada ---------- */
+/* ---------- Animações ---------- */
 @keyframes cardIn {
   from {
     opacity: 0;
@@ -293,6 +311,19 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+@keyframes celebrate {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.02) translateY(-2px); }
+  50% { transform: scale(1.01); }
+  100% { transform: scale(1); }
+}
+
+@keyframes celebrateGlow {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 /* Stagger delay para cards (até 10 items) */

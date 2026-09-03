@@ -50,11 +50,16 @@
 - [x] Atalho de teclado 'N' para nova tarefa
 - [x] Confirmação antes de excluir
 
-## Dia 5: Interatividade Avançada ⏳
-- [ ] SortableJS integração (drag & drop funcional)
-- [ ] Persistir ordem das tarefas
-- [ ] Animações ao completar tarefa
-- [ ] Exportar/Importar JSON na UI
+## Dia 5: Interatividade Avançada ✅
+- [x] SortableJS integração — drag & drop funcional com handle
+- [x] Persistir ordem das tarefas no localStorage
+- [x] Animação de celebração ao completar tarefa (glow + scale)
+- [x] Botões Exportar/Importar JSON na sidebar
+- [x] Input file oculto para importação
+- [x] Alertas de sucesso/erro na importação
+- [x] task-card.css atualizado — estilos sortable-ghost e sortable-drag
+- [x] TaskList.js atualizado — initSortable() com onEnd
+- [x] index.html atualizado — seção Backup com botões
 
 ## Dia 6: Temas & Animações ⏳
 - [ ] Toggle dark/light funcional

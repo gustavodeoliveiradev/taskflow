@@ -1,6 +1,6 @@
 /**
  * TaskFlow — TaskList Component
- * Renderização dinâmica dos cards de tarefa
+ * Renderização dinâmica dos cards de tarefa + SortableJS
  */
 
 import { escapeHtml, formatDate, isOverdue } from '../utils/helpers.js';
@@ -12,12 +12,44 @@ export class TaskList {
     this.onToggle = options.onToggle || (() => {});
     this.onEdit = options.onEdit || (() => {});
     this.onDelete = options.onDelete || (() => {});
+    this.onReorder = options.onReorder || (() => {});
+    this.sortable = null;
+  }
+
+  initSortable() {
+    if (this.sortable) {
+      this.sortable.destroy();
+    }
+
+    if (typeof Sortable === 'undefined') {
+      console.warn('SortableJS não carregado');
+      return;
+    }
+
+    this.sortable = new Sortable(this.container, {
+      animation: 200,
+      handle: '.task-card__drag',
+      ghostClass: 'sortable-ghost',
+      dragClass: 'sortable-drag',
+      delay: 100,
+      delayOnTouchOnly: true,
+      onEnd: (evt) => {
+        const ids = Array.from(this.container.children)
+          .map(child => child.dataset.id)
+          .filter(Boolean);
+        this.onReorder(ids);
+      }
+    });
   }
 
   render(tasks) {
     if (tasks.length === 0) {
       this.container.innerHTML = '';
       this.emptyState.style.display = 'flex';
+      if (this.sortable) {
+        this.sortable.destroy();
+        this.sortable = null;
+      }
       return;
     }
 
@@ -27,6 +59,7 @@ export class TaskList {
     ).join('');
 
     this.bindEvents();
+    this.initSortable();
   }
 
   createCardHTML(task, index) {
@@ -94,6 +127,11 @@ export class TaskList {
     this.container.querySelectorAll('.task-card__checkbox-input').forEach(cb => {
       cb.addEventListener('change', (e) => {
         const card = e.target.closest('.task-card');
+        // Animação de celebração
+        if (e.target.checked) {
+          card.classList.add('is-celebrating');
+          setTimeout(() => card.classList.remove('is-celebrating'), 600);
+        }
         this.onToggle(card.dataset.id);
       });
     });

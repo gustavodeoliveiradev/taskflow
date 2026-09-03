@@ -15,7 +15,8 @@ class App {
     this.taskList = new TaskList('task-list', {
       onToggle: (id) => this.taskManager.toggleComplete(id),
       onEdit: (id) => this.handleEdit(id),
-      onDelete: (id) => this.handleDelete(id)
+      onDelete: (id) => this.handleDelete(id),
+      onReorder: (ids) => this.taskManager.reorder(ids)
     });
     this.modal = new Modal('modal-overlay', {
       onSubmit: (data, mode, id) => this.handleSubmit(data, mode, id)
@@ -91,6 +92,34 @@ class App {
     searchClear.addEventListener('click', () => {
       searchInput.value = '';
       this.taskManager.setSearchQuery('');
+    });
+
+    // Exportar JSON
+    document.getElementById('btn-export').addEventListener('click', () => {
+      StorageService.exportToJSON(this.taskManager.tasks);
+    });
+
+    // Importar JSON
+    document.getElementById('btn-import').addEventListener('click', () => {
+      document.getElementById('import-file').click();
+    });
+
+    document.getElementById('import-file').addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        const tasks = await StorageService.importFromJSON(file);
+        this.taskManager.tasks = tasks;
+        this.taskManager.save();
+        this.taskManager.notify();
+        alert('Tarefas importadas com sucesso!');
+      } catch (err) {
+        alert('Erro ao importar: ' + err.message);
+      }
+
+      // Limpa o input para permitir importar o mesmo arquivo novamente
+      e.target.value = '';
     });
 
     // Atalhos de teclado globais

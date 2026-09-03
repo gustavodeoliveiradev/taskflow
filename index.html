@@ -97,6 +97,21 @@
           </div>
         </div>
       </div>
+
+      <div class="sidebar-section">
+        <h2 class="sidebar-title">Backup</h2>
+        <div class="backup-actions" style="display: flex; flex-direction: column; gap: var(--space-2);">
+          <button class="btn btn--secondary btn--sm" id="btn-export">
+            <span class="btn__icon">📤</span>
+            <span class="btn__text">Exportar JSON</span>
+          </button>
+          <button class="btn btn--secondary btn--sm" id="btn-import">
+            <span class="btn__icon">📥</span>
+            <span class="btn__text">Importar JSON</span>
+          </button>
+          <input type="file" id="import-file" accept=".json" style="display: none;" aria-label="Selecionar arquivo JSON" />
+        </div>
+      </div>
     </aside>
 
     <!-- Main Content -->
