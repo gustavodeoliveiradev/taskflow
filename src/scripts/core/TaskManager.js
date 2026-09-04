@@ -13,6 +13,7 @@ export class TaskManager {
     this.priorityFilter = null;    // high | medium | low
     this.searchQuery = '';
     this.listeners = [];
+    this.lastCelebratedId = null;  // ID do card que acabou de ser concluído
   }
 
   /** Inscreve callback para atualizações de estado */
@@ -24,6 +25,13 @@ export class TaskManager {
   notify() {
     const state = this.getState();
     this.listeners.forEach(cb => cb(state));
+
+    // Limpa o celebratedId após notificar (próxima render não celebra de novo)
+    if (this.lastCelebratedId) {
+      setTimeout(() => {
+        this.lastCelebratedId = null;
+      }, 3200); // Um pouco mais que a animação (3.1s)
+    }
   }
 
   /** Retorna estado completo da aplicação */
@@ -33,7 +41,8 @@ export class TaskManager {
       stats: this.getStats(),
       filter: this.filter,
       priorityFilter: this.priorityFilter,
-      searchQuery: this.searchQuery
+      searchQuery: this.searchQuery,
+      lastCelebratedId: this.lastCelebratedId
     };
   }
 
@@ -84,6 +93,10 @@ export class TaskManager {
     const task = this.tasks.find(t => t.id === id);
     if (task) {
       task.completed = !task.completed;
+      // Se marcou como concluído, guarda o ID para celebrar na renderização
+      if (task.completed) {
+        this.lastCelebratedId = id;
+      }
       this.save();
       this.notify();
     }

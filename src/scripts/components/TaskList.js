@@ -42,7 +42,7 @@ export class TaskList {
     });
   }
 
-  render(tasks) {
+  render(tasks, celebrateId = null) {
     if (tasks.length === 0) {
       this.container.innerHTML = '';
       this.emptyState.style.display = 'flex';
@@ -55,19 +55,22 @@ export class TaskList {
 
     this.emptyState.style.display = 'none';
     this.container.innerHTML = tasks.map((task, index) =>
-      this.createCardHTML(task, index)
+      this.createCardHTML(task, index, celebrateId)
     ).join('');
 
     this.bindEvents();
     this.initSortable();
   }
 
-  createCardHTML(task, index) {
+  createCardHTML(task, index, celebrateId = null) {
     const completed = task.completed;
     const priorityClass = `task-card__priority--${task.priority}`;
     const overdue = !completed && task.dueDate && isOverdue(task.dueDate);
     const dueDateClass = overdue ? 'is-overdue' : '';
-    const cardClass = completed ? 'task-card is-completed' : 'task-card';
+    const celebrateClass = task.id === celebrateId ? 'is-celebrating' : '';
+    const cardClass = completed
+      ? `task-card is-completed ${celebrateClass}`
+      : `task-card ${celebrateClass}`;
 
     const tagsHtml = task.tags
       .map(tag => `<span class="task-card__tag">${escapeHtml(tag)}</span>`)
@@ -127,16 +130,6 @@ export class TaskList {
     this.container.querySelectorAll('.task-card__checkbox-input').forEach(cb => {
       cb.addEventListener('change', (e) => {
         const card = e.target.closest('.task-card');
-
-        // Animação de celebração ao MARCAR como concluído
-        if (e.target.checked) {
-          card.classList.add('is-celebrating');
-          // Remove a classe após a animação terminar (3.1s)
-          setTimeout(() => {
-            card.classList.remove('is-celebrating');
-          }, 3100);
-        }
-
         this.onToggle(card.dataset.id);
       });
     });

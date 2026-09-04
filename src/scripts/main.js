@@ -138,8 +138,8 @@ class App {
   }
 
   updateUI(state) {
-    // 1. Renderiza lista de tarefas
-    this.taskList.render(state.tasks);
+    // 1. Renderiza lista de tarefas (com celebrateId se houver)
+    this.taskList.render(state.tasks, state.lastCelebratedId);
 
     const stats = state.stats;
 
