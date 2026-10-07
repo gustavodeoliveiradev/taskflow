@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,15 +10,31 @@
   <title>TaskFlow | Organize suas tarefas com estilo</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- SortableJS (CDN) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js" defer></script>
+
+  <!-- Aplica o tema antes da primeira pintura (evita flash) -->
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('taskflow-theme');
+        var theme = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) { }
+    })();
+  </script>
 
   <!-- Estilos -->
   <link rel="stylesheet" href="src/styles/main.css" />
@@ -25,6 +42,7 @@
   <!-- Scripts -->
   <script type="module" src="src/scripts/main.js" defer></script>
 </head>
+
 <body>
   <!-- Skip Link para acessibilidade -->
   <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
@@ -109,7 +127,8 @@
             <span class="btn__icon">📥</span>
             <span class="btn__text">Importar JSON</span>
           </button>
-          <input type="file" id="import-file" accept=".json" style="display: none;" aria-label="Selecionar arquivo JSON" />
+          <input type="file" id="import-file" accept=".json" style="display: none;"
+            aria-label="Selecionar arquivo JSON" />
         </div>
       </div>
     </aside>
@@ -150,7 +169,8 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal-overlay" id="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modal-title">
     <div class="modal">
       <header class="modal__header">
         <h2 id="modal-title" class="modal__title">Nova Tarefa</h2>
@@ -159,13 +179,16 @@
 
       <form class="modal__form" id="task-form">
         <div class="form-group">
-          <label for="task-title" class="form-label">Título <span class="required" aria-label="obrigatório">*</span></label>
-          <input type="text" id="task-title" class="form-input" placeholder="O que precisa ser feito?" required maxlength="100" />
+          <label for="task-title" class="form-label">Título <span class="required"
+              aria-label="obrigatório">*</span></label>
+          <input type="text" id="task-title" class="form-input" placeholder="O que precisa ser feito?" required
+            maxlength="100" />
         </div>
 
         <div class="form-group">
           <label for="task-description" class="form-label">Descrição</label>
-          <textarea id="task-description" class="form-input form-input--textarea" placeholder="Detalhes adicionais..." maxlength="500"></textarea>
+          <textarea id="task-description" class="form-input form-input--textarea" placeholder="Detalhes adicionais..."
+            maxlength="500"></textarea>
         </div>
 
         <div class="form-row">
@@ -186,7 +209,8 @@
 
         <div class="form-group">
           <label for="task-tags" class="form-label">Tags (separadas por vírgula)</label>
-          <input type="text" id="task-tags" class="form-input" placeholder="trabalho, pessoal, urgente" maxlength="100" />
+          <input type="text" id="task-tags" class="form-input" placeholder="trabalho, pessoal, urgente"
+            maxlength="100" />
         </div>
 
         <footer class="modal__footer">
@@ -197,4 +221,5 @@
     </div>
   </div>
 </body>
+
 </html>

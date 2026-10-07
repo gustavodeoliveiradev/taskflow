@@ -14,6 +14,7 @@ export class TaskList {
     this.onDelete = options.onDelete || (() => {});
     this.onReorder = options.onReorder || (() => {});
     this.sortable = null;
+    this.renderedIds = new Set();   // ids dos cards que já estão na tela
   }
 
   initSortable() {
@@ -46,6 +47,7 @@ export class TaskList {
     if (tasks.length === 0) {
       this.container.innerHTML = '';
       this.emptyState.style.display = 'flex';
+      this.renderedIds.clear();
       if (this.sortable) {
         this.sortable.destroy();
         this.sortable = null;
@@ -54,23 +56,42 @@ export class TaskList {
     }
 
     this.emptyState.style.display = 'none';
-    this.container.innerHTML = tasks.map((task, index) =>
-      this.createCardHTML(task, index, celebrateId)
-    ).join('');
+
+    // Só cards cujo id ainda não estava na tela recebem a animação de entrada.
+    // enterIndex conta só os novos, para o "efeito escada" (stagger) ficar certo.
+    let enterIndex = 0;
+    this.container.innerHTML = tasks.map(task => {
+      const isNew = !this.renderedIds.has(task.id);
+      const html = this.createCardHTML(task, isNew ? enterIndex : null, celebrateId);
+      if (isNew) enterIndex++;
+      return html;
+    }).join('');
+
+    // Guarda os ids desta renderização para comparar na próxima
+    this.renderedIds = new Set(tasks.map(task => task.id));
 
     this.bindEvents();
     this.initSortable();
   }
 
-  createCardHTML(task, index, celebrateId = null) {
+  createCardHTML(task, enterIndex = null, celebrateId = null) {
     const completed = task.completed;
     const priorityClass = `task-card__priority--${task.priority}`;
     const overdue = !completed && task.dueDate && isOverdue(task.dueDate);
     const dueDateClass = overdue ? 'is-overdue' : '';
-    const celebrateClass = task.id === celebrateId ? 'is-celebrating' : '';
-    const cardClass = completed
-      ? `task-card is-completed ${celebrateClass}`
-      : `task-card ${celebrateClass}`;
+
+    const isEntering = enterIndex !== null;
+    const celebrateClass = completed && task.id === celebrateId ? 'is-celebrating' : '';
+    const enterClass = isEntering ? 'is-entering' : '';
+
+    const cardClass = ['task-card', completed ? 'is-completed' : '', celebrateClass, enterClass]
+      .filter(Boolean)
+      .join(' ');
+
+    // Atraso só para cards que estão entrando
+    const delayStyle = isEntering
+      ? `style="animation-delay: ${Math.min(enterIndex * 0.05, 0.5)}s"`
+      : '';
 
     const tagsHtml = task.tags
       .map(tag => `<span class="task-card__tag">${escapeHtml(tag)}</span>`)
@@ -81,7 +102,7 @@ export class TaskList {
       : '';
 
     return `
-      <li class="${cardClass}" data-id="${task.id}" data-priority="${task.priority}" style="animation-delay: ${Math.min(index * 0.05, 0.5)}s">
+      <li class="${cardClass}" data-id="${task.id}" data-priority="${task.priority}" ${delayStyle}>
         <div class="task-card__drag" aria-label="Arrastar tarefa">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
             <circle cx="9" cy="5" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="9" cy="19" r="1"/>

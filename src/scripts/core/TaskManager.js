@@ -26,12 +26,9 @@ export class TaskManager {
     const state = this.getState();
     this.listeners.forEach(cb => cb(state));
 
-    // Limpa o celebratedId após notificar (próxima render não celebra de novo)
-    if (this.lastCelebratedId) {
-      setTimeout(() => {
-        this.lastCelebratedId = null;
-      }, 3200); // Um pouco mais que a animação (3.1s)
-    }
+    // A celebração é um evento de uma vez só: o state acima já carregou
+    // o id, então podemos zerar agora para que nenhum render futuro repita.
+    this.lastCelebratedId = null;
   }
 
   /** Retorna estado completo da aplicação */
@@ -91,15 +88,16 @@ export class TaskManager {
 
   toggleComplete(id) {
     const task = this.tasks.find(t => t.id === id);
-    if (task) {
-      task.completed = !task.completed;
-      // Se marcou como concluído, guarda o ID para celebrar na renderização
-      if (task.completed) {
-        this.lastCelebratedId = id;
-      }
-      this.save();
-      this.notify();
-    }
+    if (!task) return;
+
+    task.completed = !task.completed;
+
+    // Só celebra quando a tarefa PASSA a ser concluída.
+    // Ao desfazer, não há nada para celebrar.
+    this.lastCelebratedId = task.completed ? id : null;
+
+    this.save();
+    this.notify();
   }
 
   reorder(newOrderIds) {

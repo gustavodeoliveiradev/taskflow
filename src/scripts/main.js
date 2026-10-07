@@ -8,6 +8,7 @@ import { TaskList } from './components/TaskList.js';
 import { Modal } from './components/Modal.js';
 import { StorageService } from './services/StorageService.js';
 import { mockTasks } from './data/mock-tasks.js';
+import { ThemeService } from './services/ThemeService.js';
 
 class App {
   constructor() {
@@ -26,6 +27,9 @@ class App {
   }
 
   init() {
+    // Aplica o tema salvo (ou o do sistema) antes de renderizar
+    ThemeService.apply(ThemeService.getInitialTheme());
+
     // Carrega mock data se for primeiro acesso
     this.taskManager.loadMockData(mockTasks);
 
@@ -40,6 +44,11 @@ class App {
   }
 
   bindUIEvents() {
+    // Alternar tema claro/escuro
+    document.getElementById('theme-toggle').addEventListener('click', () => {
+      ThemeService.toggle();
+    });
+    
     // Botão Nova Tarefa
     document.getElementById('btn-new-task').addEventListener('click', () => {
       this.modal.open('create');
